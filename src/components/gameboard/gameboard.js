@@ -18,6 +18,18 @@ const gameboard = ((width = 3, height = 3)=>{
         }
         return cell;
     };
+    const hasSequence = (length = 3, cellArray = _cells) =>{
+        let result = false;
+        const horizontalSequence = (length)=>{
+            const regexString = '(.)\\1{' + (length - 1) +'}';
+            let regex = new RegExp(regexString);
+            let result = false;
+            cellArray.forEach((row)=>{ result = result || regex.test(row.join('')) });
+            return result;
+        };
+        result = result || horizontalSequence(length);
+        return result;
+    };
     const isFull = () => {
         let NaNcells = _cells.filter(cell => cell === NaN);
         return NaNcells.length === 0;
@@ -37,7 +49,7 @@ const gameboard = ((width = 3, height = 3)=>{
 
     let _cells = _generateCells(width, height);
 
-    return {cells, cellAt, isFull, write}
+    return {cells, cellAt, hasSequence, isFull, write}
 })();
 module.exports = {
     gameboard: gameboard
