@@ -18,6 +18,10 @@ const gameboard = ((width = 3, height = 3)=>{
         }
         return cell;
     };
+    const isFull = () => {
+        let NaNcells = _cells.filter(cell => cell === NaN);
+        return NaNcells.length === 0;
+    };
     const write = (coordinates, identifier, cellArray = _cells) => {
         let row = cellArray;
         coordinates.slice(1).reverse().forEach((coord)=>{
@@ -28,7 +32,7 @@ const gameboard = ((width = 3, height = 3)=>{
 
     let _cells = _generateCells(width, height);
 
-    return {cells, cellAt, write}
+    return {cells, cellAt, isFull, write}
 })();
 module.exports = {
     gameboard: gameboard
