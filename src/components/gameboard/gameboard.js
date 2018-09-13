@@ -27,7 +27,12 @@ const gameboard = ((width = 3, height = 3)=>{
         coordinates.slice(1).reverse().forEach((coord)=>{
             row = row[coord]
         });
-        row[coordinates[0]] = identifier;
+        if(isNaN(row[coordinates[0]])){
+            row[coordinates[0]] = identifier;
+            return 0;
+        }
+        else
+            return 1
     };
 
     let _cells = _generateCells(width, height);
