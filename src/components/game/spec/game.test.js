@@ -3,9 +3,6 @@ const {gameboard} = require('../../gameboard/gameboard');
 const {playerFactory} = require('../../player/player');
 
 describe("game", ()=>{
-    beforeEach(()=>{
-        game.getBoard().reset;
-    });
     let gboard = gameboard;
     let players = [playerFactory("First", "X"), playerFactory("Second", "O")];
     game.setBoard(gboard);
@@ -16,8 +13,18 @@ describe("game", ()=>{
     it("has Players", ()=>{
         expect(game.getPlayers()).toBe(players);
     });
-    it("can set a move in the board", ()=>{
-        game.setMove([0,0]);
-        expect(game.getBoard().cells()).toEqual([["X", NaN, NaN], [NaN, NaN, NaN], [NaN, NaN, NaN]]);
-    })
+    describe("setMove", ()=>{
+        beforeEach(()=>{ game.reset() });
+        it("can set a move in the board", ()=>{
+            game.setMove([0,0]);
+            expect(game.getBoard().cells()).toEqual([[players[0].token, NaN, NaN], [NaN, NaN, NaN], [NaN, NaN, NaN]]);
+        });
+        it("alternates between players", ()=>{
+            game.setMove([0,0]);
+            game.setMove([1,1]);
+            game.setMove([1,0]);
+            game.setMove([2,2]);
+            expect(game.getBoard().cells()).toEqual([[players[0].token, players[0].token, NaN], [NaN, players[1].token , NaN], [NaN, NaN, players[1].token]]);
+        })
+    });
 });
