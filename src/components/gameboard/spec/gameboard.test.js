@@ -13,9 +13,11 @@ describe("gameboard",()=>{
     it("can tell when the board is full", ()=>{
         for(let i = 0; i<width; i++){
             for(let j = 0; j < height; j++){
-                gameboard.write([0,0],identifiers[0]);
+                let identifier = identifiers[(j + i) % 2];
+                gameboard.write([j,i],identifier);
             }
         }
+        expect(gameboard.cells()).toEqual([[identifiers[0], identifiers[1], identifiers[0]], [identifiers[1], identifiers[0], identifiers[1]], [identifiers[0], identifiers[1], identifiers[0]]]);
         expect(gameboard.isFull()).toEqual(true)
     });
     describe("hasSequence",()=>{
@@ -40,7 +42,7 @@ describe("gameboard",()=>{
            }
            //expect(gameboard.cells()).toEqual([[identifiers[0],NaN, NaN],[NaN, identifiers[0], NaN],[NaN, NaN, identifiers[0]]])
             expect(gameboard.hasSequence()).toEqual(true)
-        })
+        });
         it("returns true when there is an inverse diagonal sequence of N identifiers", ()=>{
             for(let i = 0; i < width && i < height; i++){
                 gameboard.write([i,height - 1 - i], identifiers[0]);

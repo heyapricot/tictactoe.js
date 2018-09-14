@@ -3,6 +3,7 @@ const {gameboard} = require('../../gameboard/gameboard');
 const {playerFactory} = require('../../player/player');
 
 describe("game", ()=>{
+    let length = 3;
     let gboard = gameboard;
     let players = [playerFactory("First", "X"), playerFactory("Second", "O")];
     game.setBoard(gboard);
@@ -32,5 +33,18 @@ describe("game", ()=>{
            game.setMove([0,1]);
            expect(game.getBoard().cells()).toEqual([[players[0].token, NaN, NaN], [players[1].token, NaN, NaN], [NaN, NaN, NaN]]);
         });
+    });
+    describe("hasEnded", ()=>{
+        beforeEach(()=>{game.reset()});
+        it("is true when the board has a sequence of length N", ()=>{
+            for(let i = 0; i < length; i++){
+                for(let j = 0; j < length; j++){
+                    //console.log(`${game.getBoard().cells()[0]}` + "\n" + `${game.getBoard().cells()[1]}` + "\n" + `${game.getBoard().cells()[2]}`);
+                    game.setMove([j,i])
+                }
+            }
+            expect(game.getBoard().cells()).toEqual([[players[0].token, players[1].token, players[0].token], [players[1].token, players[0].token, players[1].token], [players[0].token, players[1].token, players[0].token]]);
+            expect(game.hasEnded()).toEqual(true);
+        })
     });
 });

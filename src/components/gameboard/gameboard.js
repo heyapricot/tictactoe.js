@@ -13,9 +13,10 @@ const gameboard = ((width = 3, height = 3)=>{
     };
     const cellAt = (coordinates, cellArray = _cells) => {
         let cell = cellArray;
-        for(let i = 0; i < coordinates.length; i++){
-            cell = ((position, array) => { return array[position] })(coordinates[i], cell);
-        }
+        let coords = [...coordinates];
+        coords.reverse().forEach((coord)=>{
+            cell = cell[coord]
+        });
         return cell;
     };
     const hasSequence = (length = 3, cellArray = _cells) =>{
@@ -67,8 +68,9 @@ const gameboard = ((width = 3, height = 3)=>{
         _cells = _generateCells(_width,_height);
     };
     const write = (coordinates, identifier, cellArray = _cells) => {
+        let coords = [...coordinates];
         let row = cellArray;
-        coordinates.slice(1).reverse().forEach((coord)=>{
+        coords.slice(1).reverse().forEach((coord)=>{
             row = row[coord]
         });
         if(isNaN(row[coordinates[0]])){
