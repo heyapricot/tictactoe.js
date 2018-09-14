@@ -1,7 +1,7 @@
 const game = (()=>{
-    let turn = 0;
-    let _gameBoard = NaN;
-    let _players = NaN;
+    const _currentPlayer = (turn = _turn, players = _players)=>{
+        return players[turn % players.length];
+    };
     const getBoard = () =>{
         return _gameBoard;
     };
@@ -11,11 +11,16 @@ const game = (()=>{
     const setBoard = (board)=> {
         _gameBoard = board;
     };
+    const setMove = (coordinates, gameboard = _gameBoard) => {
+        gameboard.write(coordinates, _currentPlayer().token);
+    };
     const setPlayers = (players) => {
         _players = players;
     };
-    const myFunc = (a,b) => a + b;
-    return {getBoard, getPlayers, setBoard, setPlayers}
+    let _turn = 0;
+    let _gameBoard = NaN;
+    let _players = NaN;
+    return {getBoard, getPlayers, setBoard, setMove, setPlayers}
 })();
 
 module.exports = {
