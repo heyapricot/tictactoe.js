@@ -19,10 +19,26 @@ describe("gameboard",()=>{
         expect(gameboard.isFull()).toEqual(true)
     });
     describe("hasSequence",()=>{
-        it("is true when a row has a sequence of N identifiers", ()=>{
+        beforeEach(()=>{
+           gameboard.reset();
+        });
+        it("returns true when a row has a sequence of N identifiers", ()=>{
             for(let i = 0; i < width; i++){
                 gameboard.write([i,0], identifiers[1]);
             }
+            expect(gameboard.hasSequence()).toEqual(true)
+        });
+        it("returns true when a column has a sequence of N identifiers", ()=>{
+            for(let i = 0; i < width; i++){
+                gameboard.write([0,i], identifiers[0]);
+            }
+            expect(gameboard.hasSequence()).toEqual(true)
+        });
+        it("returns true when there is a diagonal sequence of N identifiers", ()=>{
+           for(let i = 0; i < width; i++){
+               gameboard.write([i,i], identifiers[0]);
+           }
+           //expect(gameboard.cells()).toEqual([[identifiers[0],NaN, NaN],[NaN, identifiers[0], NaN],[NaN, NaN, identifiers[0]]])
             expect(gameboard.hasSequence()).toEqual(true)
         })
     })
