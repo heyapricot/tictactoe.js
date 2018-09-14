@@ -26,5 +26,11 @@ describe("game", ()=>{
             game.setMove([2,2]);
             expect(game.getBoard().cells()).toEqual([[players[0].token, players[0].token, NaN], [NaN, players[1].token , NaN], [NaN, NaN, players[1].token]]);
         })
+        it("doesn't allow overwriting", ()=>{
+           game.setMove([0,0]);
+           game.setMove([0,0]);
+           game.setMove([0,1]);
+           expect(game.getBoard().cells()).toEqual([[players[0].token, NaN, NaN], [players[1].token, NaN, NaN], [NaN, NaN, NaN]]);
+        });
     });
 });

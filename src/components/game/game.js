@@ -19,8 +19,10 @@ const game = (()=>{
         _gameBoard = board;
     };
     const setMove = (coordinates, gameboard = _gameBoard, player = _currentPlayer(), callback = _afterSetMove) => {
-        gameboard.write(coordinates, player.token);
-        callback();
+        if(Number.isNaN(gameboard.cellAt(coordinates))){
+            gameboard.write(coordinates, player.token);
+            callback();
+        }
     };
     const setPlayers = (players) => {
         _players = players;
