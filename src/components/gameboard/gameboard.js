@@ -46,7 +46,17 @@ const gameboard = ((width = 3, height = 3)=>{
             return result;
         };
 
-        result = result || horizontalSequence() || verticalSequence() || diagonalSequence();
+        const inverseDiagonalSequence = (regularExpression = regex)=>{
+            let result = false;
+            let diagonal = "";
+            for(let i = 0; i < length; i++){
+                diagonal = diagonal + cellArray[i][length - 1 - i];
+            }
+            result = regularExpression.test(diagonal);
+            return result;
+        };
+
+        result = result || horizontalSequence() || verticalSequence() || diagonalSequence() || inverseDiagonalSequence();
         return result;
     };
     const isFull = () => {

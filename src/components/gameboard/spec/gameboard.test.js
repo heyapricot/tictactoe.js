@@ -41,5 +41,12 @@ describe("gameboard",()=>{
            //expect(gameboard.cells()).toEqual([[identifiers[0],NaN, NaN],[NaN, identifiers[0], NaN],[NaN, NaN, identifiers[0]]])
             expect(gameboard.hasSequence()).toEqual(true)
         })
+        it("returns true when there is an inverse diagonal sequence of N identifiers", ()=>{
+            for(let i = 0; i < width && i < height; i++){
+                gameboard.write([i,height - 1 - i], identifiers[0]);
+            }
+            //expect(gameboard.cells()).toEqual([[NaN, NaN, identifiers[0]],[NaN, identifiers[0], NaN],[identifiers[0],NaN, NaN]])
+            expect(gameboard.hasSequence()).toEqual(true)
+        })
     })
 });
