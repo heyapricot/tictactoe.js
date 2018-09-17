@@ -3,6 +3,7 @@ const {gameboard} = require('../../gameboard/gameboard');
 const {playerFactory} = require('../../player/player');
 
 describe("game", ()=>{
+    beforeEach(()=>{ game.reset() });
     let length = 3;
     let gboard = gameboard;
     let players = [playerFactory("First", "X"), playerFactory("Second", "O")];
@@ -15,7 +16,6 @@ describe("game", ()=>{
         expect(game.getPlayers()).toBe(players);
     });
     describe("setMove", ()=>{
-        beforeEach(()=>{ game.reset() });
         it("can set a move in the board", ()=>{
             game.setMove([0,0]);
             expect(game.getBoard().cells()).toEqual([[players[0].token, NaN, NaN], [NaN, NaN, NaN], [NaN, NaN, NaN]]);
@@ -35,7 +35,6 @@ describe("game", ()=>{
         });
     });
     describe("hasEnded", ()=>{
-        beforeEach(()=>{game.reset()});
         it("is true when the board has a sequence of length N", ()=>{
             for(let i = 0; i < length; i++){
                 for(let j = 0; j < length; j++){
@@ -57,4 +56,27 @@ describe("game", ()=>{
             expect(game.hasEnded()).toEqual(true);
         });
     });
+    describe("winner", ()=>{
+        it("is NaN if the game ends in tie", ()=>{
+            [0,2,1].forEach((i)=>{
+                for(let j = 0; j < length; j++){
+                    //console.log(`${game.getBoard().cells()[0]}` + "\n" + `${game.getBoard().cells()[1]}` + "\n" + `${game.getBoard().cells()[2]}`);
+                    game.setMove([j,i])
+                }
+            });
+            expect(Number.isNaN(game.winner())).toEqual(true);
+            expect(game.hasEnded()).toEqual(true);
+        });
+        it("stores the player who got the sequence", ()=>{
+            for(let i = 0; i < length; i++){
+                for(let j = 0; j < length; j++){
+                    //console.log(`${game.getBoard().cells()[0]}` + "\n" + `${game.getBoard().cells()[1]}` + "\n" + `${game.getBoard().cells()[2]}`);
+                    game.setMove([j,i])
+                }
+            }
+            expect(game.winner()).toEqual(players[0]);
+            expect(game.hasEnded()).toEqual(true);
+        })
+
+    })
 });

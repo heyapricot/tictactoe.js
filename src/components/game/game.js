@@ -7,6 +7,7 @@ const game = (()=>{
     const _checkGameEnd = ()=>{
         if(_gameBoard.hasSequence()){
             _hasEnded = true;
+            _winner = _currentPlayer();
             return [_hasEnded, _currentPlayer()]
         }
         else if (_gameBoard.isFull()) {
@@ -33,11 +34,13 @@ const game = (()=>{
     const setPlayers = (players) => {
         _players = players;
     };
+    const winner = ()=>{return _winner};
     let _turn = 0;
     let _gameBoard = NaN;
     let _hasEnded = false;
     let _players = NaN;
-    return {getBoard, getPlayers, hasEnded, reset, setBoard, setMove, setPlayers}
+    let _winner = NaN;
+    return {getBoard, getPlayers, hasEnded, reset, setBoard, setMove, setPlayers, winner}
 })();
 
 module.exports = {
