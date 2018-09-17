@@ -46,5 +46,15 @@ describe("game", ()=>{
             expect(game.getBoard().cells()).toEqual([[players[0].token, players[1].token, players[0].token], [players[1].token, players[0].token, players[1].token], [players[0].token, players[1].token, players[0].token]]);
             expect(game.hasEnded()).toEqual(true);
         })
+        it("is true when the board is full", ()=>{
+            [0,2,1].forEach((i)=>{
+                for(let j = 0; j < length; j++){
+                    //console.log(`${game.getBoard().cells()[0]}` + "\n" + `${game.getBoard().cells()[1]}` + "\n" + `${game.getBoard().cells()[2]}`);
+                    game.setMove([j,i])
+                }
+            })
+            expect(game.getBoard().cells()).toEqual([[players[0].token, players[1].token, players[0].token],[players[0].token, players[1].token, players[0].token], [players[1].token, players[0].token, players[1].token]]);
+            expect(game.hasEnded()).toEqual(true);
+        });
     });
 });
