@@ -27,6 +27,23 @@ const generateGrid = (()=>{
         })();
     }
 })();
+const generateResetButton = (()=>{
+   let row = bootstrapGridElement("row",["my-5"],mainContainer);
+   let column = bootstrapGridElement("col", ["d-flex", "justify-content-center"], row.getHtmlNode());
+   const setupButton = (()=>{
+       let buttonContainer = document.createElement('div');
+       column.setChildNode(buttonContainer);
+       let button = document.createElement('button');
+       buttonContainer.appendChild(button);
+       ["btn", "btn-success"].forEach((cssClass)=>{button.classList.toggle(cssClass)});
+       let icon = (()=>{
+           let i = document.createElement('i');
+           ["fas", "fa-redo-alt"].forEach((cssClass)=>{i.classList.toggle(cssClass)});
+           return i;
+       })();
+       button.appendChild(icon);
+   })();
+})();
 const initCells = (()=>{
     cells.forEach((cell)=>{
         cell.addClickFunction(onCellClick.bind(this, cell));

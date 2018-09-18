@@ -1,6 +1,7 @@
 *.idea
 **/bundle.js
 dist/main.js
+*.map
 
 # Logs
 logs
