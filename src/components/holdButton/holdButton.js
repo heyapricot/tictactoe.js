@@ -22,6 +22,23 @@ const holdButtonFactory = () =>{
             _togglePressed();
         }
     };
+
+    const _removeChildren = ()=>{
+        _htmlButton.childNodes.forEach((childNode)=>{
+            _htmlButton.removeChild(childNode);
+        });
+    };
+
+    const _resetAppearance = ()=>{
+        if(_htmlButton.classList.contains(_cssClass)){
+            _toggleAppearance();
+        }
+    };
+
+    const _resetPressedState = ()=>{
+        _pressed = false;
+    };
+
     const _toggleAppearance = (cssClass = _cssClass, defaultCssClass = _defaultCssClass, pressed = _pressed)=>{
             _htmlButton.classList.toggle(defaultCssClass);
             _htmlButton.classList.toggle(cssClass)
@@ -29,19 +46,16 @@ const holdButtonFactory = () =>{
     const _togglePressed = ()=>{
         _pressed = true;
     };
+
     const reset = ()=>{
-        if(_htmlButton.classList.contains(_cssClass)){
-            _toggleAppearance();
-        }
-        _htmlButton.childNodes.forEach((childNode)=>{
-            _htmlButton.removeChild(childNode);
-        });
-        _cssClass = "btn-dark";
-        _pressed = false;
+        _resetAppearance();
+        _resetPressedState();
+        _removeChildren();
         _resetCallbacks.forEach((resetCallback)=>{
             resetCallback.call();
         });
     };
+
     const setParent = (parentNode, childNode = _htmlButton ) =>{
         parentNode.appendChild(childNode);
     };

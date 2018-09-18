@@ -10,6 +10,11 @@ const onCellClick = (cell)=>{
     cell.setCssClass(buttonClasses[turn % 2]);
     turn++;
 };
+const resetCells = ()=>{
+    cells.forEach((cell)=>{
+        cell.reset();
+    })
+};
 const generateGrid = (()=>{
     let rowQuantity = 3;
     let columnQuantity = 3;
@@ -34,6 +39,7 @@ const generateResetButton = (()=>{
        let buttonContainer = document.createElement('div');
        column.setChildNode(buttonContainer);
        let button = document.createElement('button');
+       button.addEventListener('click', resetCells);
        buttonContainer.appendChild(button);
        ["btn", "btn-success"].forEach((cssClass)=>{button.classList.toggle(cssClass)});
        let icon = (()=>{
