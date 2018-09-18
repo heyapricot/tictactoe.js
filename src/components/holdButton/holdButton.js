@@ -2,6 +2,8 @@ const holdButtonFactory = (cssClass) =>{
     let _htmlButton = document.createElement('button');
     let _cssClass = cssClass;
     let _defaultCssClass = "btn-secondary";
+    let _pressed = false;
+    let _onClickCallbacks = [];
     const _init = (width, height)=>{
         ["btn", _defaultCssClass].forEach((cssClass) =>{
             _htmlButton.classList.toggle(cssClass);
@@ -10,26 +12,37 @@ const holdButtonFactory = (cssClass) =>{
         _htmlButton.style.height = `${height}px`;
         _htmlButton.addEventListener('click', _onClick)
     };
-    const setParent = (parentNode, childNode = _htmlButton ) =>{
-        parentNode.appendChild(childNode);
-    };
     const _onClick = ()=>{
-        _toggleAppearance();
-        _togglePressed();
+        if(!_pressed){
+            _toggleAppearance();
+            _togglePressed();
+            _onClickCallbacks.forEach((clickCallback)=>{
+                clickCallback.call();
+            })
+        }
     };
     const _toggleAppearance = (cssClass = _cssClass, defaultCssClass = _defaultCssClass, pressed = _pressed)=>{
-        if(!pressed){
             _htmlButton.classList.toggle(defaultCssClass);
             _htmlButton.classList.toggle(cssClass)
-        }
     };
     const _togglePressed = ()=>{
         _pressed = true;
     };
-    let _pressed = false;
+    const setParent = (parentNode, childNode = _htmlButton ) =>{
+        parentNode.appendChild(childNode);
+    };
+    const setIcon = (iconClasses)=>{
+        let icon = document.createElement('i');
+        iconClasses.forEach((cssClass)=>{
+            icon.classList.toggle(cssClass);
+        });
+        _htmlButton.appendChild(icon);
+    };
+    const addClickFunction = (functionReference)=>{
+        _onClickCallbacks.push(functionReference);
+    };
     _init(50, 50);
-
-    return {setParent}
+    return {addClickFunction,setIcon,setParent}
 };
 
 module.exports = {
