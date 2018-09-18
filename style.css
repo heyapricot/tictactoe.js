@@ -2,6 +2,10 @@ body {
     background-color: #212529;
 }
 
+.btn {
+    border-radius: 2rem;
+}
+
 #mainContainer {
     height: 100vh;
 }
