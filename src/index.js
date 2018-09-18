@@ -1,4 +1,5 @@
 const {holdButtonFactory} = require('./components/holdButton/holdButton');
+const {bootstrapGridElement} = require('./components/bootstrapGridElement/bootstrapGridElement');
 const mainContainer = document.getElementById('mainContainer');
 let cells = [];
 const buttonClasses = [["btn-primary"], ["btn-warning"]];
@@ -13,15 +14,11 @@ const generateGrid = (()=>{
     let rowQuantity = 3;
     let columnQuantity = 3;
     for(let i = 0; i < rowQuantity; i++){
-        let row = document.createElement('div');
-        ["row"].forEach((cssClass)=>{ row.classList.toggle(cssClass) });
-        mainContainer.appendChild(row);
-        let column = document.createElement('div');
-        ["col", "d-flex", "justify-content-center"].forEach((cssClass)=>{ column.classList.toggle(cssClass) });
-        row.appendChild(column);
+        let row = bootstrapGridElement('row',[], mainContainer);
+        let column = bootstrapGridElement('col', ["d-flex", "justify-content-center"], row.getHtmlNode());
         const generateHoldButtons = (()=>{
             let buttonRowContainer = document.createElement('div');
-            column.appendChild(buttonRowContainer);
+            column.setChildNode(buttonRowContainer);
             for(let j = 0; j < columnQuantity; j++){
                 let button = holdButtonFactory();
                 cells.push(button);
