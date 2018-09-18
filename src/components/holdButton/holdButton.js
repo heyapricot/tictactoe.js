@@ -2,8 +2,9 @@ const holdButtonFactory = () =>{
     let _htmlButton = document.createElement('button');
     let _cssClass = "btn-dark";
     let _defaultCssClass = "btn-secondary";
-    let _pressed = false;
     let _onClickCallbacks = [];
+    let _resetCallbacks = [];
+    let _pressed = false;
     const _init = (width, height)=>{
         ["btn", _defaultCssClass].forEach((cssClass) =>{
             _htmlButton.classList.toggle(cssClass);
@@ -28,6 +29,19 @@ const holdButtonFactory = () =>{
     const _togglePressed = ()=>{
         _pressed = true;
     };
+    const reset = ()=>{
+        if(_htmlButton.classList.contains(_cssClass)){
+            _toggleAppearance();
+        }
+        _htmlButton.childNodes.forEach((childNode)=>{
+            _htmlButton.removeChild(childNode);
+        });
+        _cssClass = "btn-dark";
+        _pressed = false;
+        _resetCallbacks.forEach((resetCallback)=>{
+            resetCallback.call();
+        });
+    };
     const setParent = (parentNode, childNode = _htmlButton ) =>{
         parentNode.appendChild(childNode);
     };
@@ -44,8 +58,11 @@ const holdButtonFactory = () =>{
     const addClickFunction = (functionReference)=>{
         _onClickCallbacks.push(functionReference);
     };
+    const addResetFunction = (functionReference)=>{
+        _resetCallbacks.push(functionReference);
+    };
     _init(60, 60);
-    return {addClickFunction,setCssClass,setIcon,setParent}
+    return {addClickFunction,addResetFunction,reset,setCssClass,setIcon,setParent}
 };
 
 module.exports = {

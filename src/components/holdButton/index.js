@@ -10,8 +10,19 @@ const icons = [["fas", "fa-times", "fa-2x"], ["far", "fa-circle", "fa-2x"]];
 let turn = 0;
 const cells = [];
 const cellQuantity = 2;
-for(let i = 0; i < cellQuantity; i++){
+for(let i = 0; i < cellQuantity; i++) {
     cells[i] = holdButtonFactory();
-    cells[i].addClickFunction(gameMove.bind(this, cells[i]));
-    cells[i].setParent(main);
 }
+const initCells = ()=>{
+    cells.forEach((cell)=>{
+        cell.addClickFunction(gameMove.bind(this, cell));
+        cell.setParent(main);
+    });
+};
+const resetButton = document.createElement('button');
+const resetAll = ()=>{ cells.forEach((cell)=>{ cell.reset() }) };
+["btn", "btn-danger"].forEach((cssClass)=>{resetButton.classList.toggle(cssClass)});
+resetButton.textContent = "Reset All";
+resetButton.addEventListener('click', resetAll);
+initCells();
+main.appendChild(resetButton);
