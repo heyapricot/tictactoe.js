@@ -1,9 +1,17 @@
 const {holdButtonFactory} = require('./holdButton');
 let main = document.getElementById('main');
-const cell = holdButtonFactory('btn-success');
-const writeIconToCell = ()=>{
-    cell.setIcon(["fas", "fa-heart"]);
-    console.log("Im fn write IconToCell");
+const gameMove = (cell)=>{
+    cell.setIcon(icons[turn % 2]);
+    cell.setCssClass(buttonClasses[turn % 2]);
+    turn++;
 };
-cell.addClickFunction(writeIconToCell);
-cell.setParent(main);
+const buttonClasses = [["btn-primary"], ["btn-warning"]];
+const icons = [["fas", "fa-times", "fa-2x"], ["far", "fa-circle", "fa-2x"]];
+let turn = 0;
+const cells = [];
+const cellQuantity = 2;
+for(let i = 0; i < cellQuantity; i++){
+    cells[i] = holdButtonFactory();
+    cells[i].addClickFunction(gameMove.bind(this, cells[i]));
+    cells[i].setParent(main);
+}
