@@ -25,10 +25,15 @@ const onCellClick = (cell)=>{
         cell.setCssClass(buttonClasses[turn % 2]);
         let coords = getCellCoordinates(cell);
         game.setMove(coords);
+        if(game.hasEnded()){
+            onGameEnd();
+        }
         console.log(game.getBoard().cells());
-        console.log(`Winner is: ${game.winner().name}`);
     }
 };
+const onGameEnd = ()=>{
+    alert(`Winner is: ${game.winner().name}`)
+}
 const resetCells = ()=>{
     cells.forEach((cell)=>{
         cell.reset();
