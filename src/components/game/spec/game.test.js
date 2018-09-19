@@ -78,5 +78,14 @@ describe("game", ()=>{
             expect(game.hasEnded()).toEqual(true);
         })
 
+    });
+    describe("getTurn", ()=>{
+        it("returns the current turn number", ()=>{
+            let turns = 3;
+            for(let i = 0; i < turns; i++){
+                game.setMove([i,i]);
+            }
+            expect(game.getTurn()).toEqual(turns);
+        })
     })
 });

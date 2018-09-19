@@ -11,7 +11,6 @@ let gboard = gameboard;
 let players = [playerFactory("First", "X"), playerFactory("Second", "O")];
 game.setBoard(gboard);
 game.setPlayers(players);
-let turn = 0;
 const getCellCoordinates = (cell, rowQuantity = 3, columnQuantity = 3 )=>{
     let arrIndex = cells.indexOf(cell);
     let h = Math.floor(arrIndex / rowQuantity);
@@ -19,12 +18,13 @@ const getCellCoordinates = (cell, rowQuantity = 3, columnQuantity = 3 )=>{
     return [w,h]
 };
 const onCellClick = (cell)=>{
+    let turn = game.getTurn();
     cell.setIcon(icons[turn % 2]);
     cell.setCssClass(buttonClasses[turn % 2]);
     let coords = getCellCoordinates(cell);
     game.setMove(coords);
     console.log(game.getBoard().cells());
-    turn++;
+    console.log(`Winner is: ${game.winner().name}`);
 };
 const resetCells = ()=>{
     cells.forEach((cell)=>{

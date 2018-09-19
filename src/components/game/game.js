@@ -17,6 +17,7 @@ const game = (()=>{
     };
     const getBoard = () =>{ return _gameBoard };
     const getPlayers = () =>{ return _players };
+    const getTurn = () =>{ return _turn };
     const hasEnded = ()=> { return _hasEnded };
     const reset = ()=>{
         _gameBoard.reset();
@@ -40,7 +41,7 @@ const game = (()=>{
     let _hasEnded = false;
     let _players = NaN;
     let _winner = NaN;
-    return {getBoard, getPlayers, hasEnded, reset, setBoard, setMove, setPlayers, winner}
+    return {getBoard, getPlayers, getTurn, hasEnded, reset, setBoard, setMove, setPlayers, winner}
 })();
 
 module.exports = {
