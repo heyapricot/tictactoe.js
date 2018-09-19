@@ -64,6 +64,7 @@ describe("game", ()=>{
                     game.setMove([j,i])
                 }
             });
+            console.log(game.winner());
             expect(Number.isNaN(game.winner())).toEqual(true);
             expect(game.hasEnded()).toEqual(true);
         });

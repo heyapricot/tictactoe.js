@@ -18,13 +18,16 @@ const getCellCoordinates = (cell, rowQuantity = 3, columnQuantity = 3 )=>{
     return [w,h]
 };
 const onCellClick = (cell)=>{
-    let turn = game.getTurn();
-    cell.setIcon(icons[turn % 2]);
-    cell.setCssClass(buttonClasses[turn % 2]);
-    let coords = getCellCoordinates(cell);
-    game.setMove(coords);
-    console.log(game.getBoard().cells());
-    console.log(`Winner is: ${game.winner().name}`);
+    console.log(`Game has ended?: ${game.hasEnded()}`);
+    if(!game.hasEnded()){
+        let turn = game.getTurn();
+        cell.setIcon(icons[turn % 2]);
+        cell.setCssClass(buttonClasses[turn % 2]);
+        let coords = getCellCoordinates(cell);
+        game.setMove(coords);
+        console.log(game.getBoard().cells());
+        console.log(`Winner is: ${game.winner().name}`);
+    }
 };
 const resetCells = ()=>{
     cells.forEach((cell)=>{

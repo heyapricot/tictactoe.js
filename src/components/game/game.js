@@ -22,6 +22,7 @@ const game = (()=>{
     const reset = ()=>{
         _gameBoard.reset();
         _turn = 0;
+        _winner = NaN;
     };
     const setBoard = (board)=> {
         _gameBoard = board;

@@ -1,4 +1,5 @@
 const gameboard = ((width = 3, height = 3)=>{
+
     const _generateCells = (width, height) => {
         let matrix = [];
         for(let i = 0; i < height; i++){matrix.push([])}
@@ -61,7 +62,8 @@ const gameboard = ((width = 3, height = 3)=>{
         return result;
     };
     const isFull = () => {
-        let NaNcells = _cells.filter(cell => cell === NaN);
+        let flattened = [].concat.apply([], _cells);
+        let NaNcells = flattened.filter(cell => Number.isNaN(cell));
         return NaNcells.length === 0;
     };
     const reset = ()=>{
@@ -81,7 +83,7 @@ const gameboard = ((width = 3, height = 3)=>{
             return 1
     };
 
-    let _cells = _generateCells(width, height);
+    let _cells = (()=>{return _generateCells(width, height)})();
     let _width = width;
     let _height = height;
 
