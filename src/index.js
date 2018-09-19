@@ -21,7 +21,9 @@ const getCellCoordinates = (cell, rowQuantity = 3, columnQuantity = 3 )=>{
 const onCellClick = (cell)=>{
     cell.setIcon(icons[turn % 2]);
     cell.setCssClass(buttonClasses[turn % 2]);
-    console.log(getCellCoordinates(cell));
+    let coords = getCellCoordinates(cell);
+    game.setMove(coords);
+    console.log(game.getBoard().cells());
     turn++;
 };
 const resetCells = ()=>{
