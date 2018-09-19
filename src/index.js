@@ -32,8 +32,14 @@ const onCellClick = (cell)=>{
     }
 };
 const onGameEnd = ()=>{
-    alert(`Winner is: ${game.winner().name}`)
-}
+    if(Number.isNaN(game.winner())){
+        alert(`Tie`)
+    }
+    else
+    {
+        alert(`Winner is: ${game.winner().name}`)
+    }
+};
 const resetCells = ()=>{
     cells.forEach((cell)=>{
         cell.reset();
