@@ -89,11 +89,8 @@ const setupInput = (()=>{
     let inputOne = document.getElementById('playerOne');
     let inputTwo = document.getElementById('playerTwo');
     const setPlayerName = ()=>{
-        console.log("Entered set name");
         players[0].name = inputOne.value;
-        console.log(`inputOne.value: ${inputOne.value}, P1 name; ${players[0].name}`);
         players[1].name = inputTwo.value;
-        console.log(`inputTwo.value: ${inputTwo.value}, P2 name; ${players[1].name}`);
     };
     inputOne.addEventListener('blur', setPlayerName);
     inputTwo.addEventListener('blur', setPlayerName);
