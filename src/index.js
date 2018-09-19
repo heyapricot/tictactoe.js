@@ -4,6 +4,8 @@ const {game} = require('./components/game/game');
 const {gameboard} = require('./components/gameboard/gameboard');
 const {playerFactory} = require('./components/player/player');
 const mainContainer = document.getElementById('mainContainer');
+const gridContainer = document.getElementById('gridContainer');
+const resetContainer = document.getElementById('resetContainer');
 let cells = [];
 const buttonClasses = [["btn-primary"], ["btn-warning"]];
 const icons = [["fas", "fa-times", "fa-2x"], ["far", "fa-circle", "fa-2x"]];
@@ -18,7 +20,6 @@ const getCellCoordinates = (cell, rowQuantity = 3, columnQuantity = 3 )=>{
     return [w,h]
 };
 const onCellClick = (cell)=>{
-    console.log(`Game has ended?: ${game.hasEnded()}`);
     if(!game.hasEnded()){
         let turn = game.getTurn();
         cell.setIcon(icons[turn % 2]);
@@ -48,7 +49,7 @@ const onResetButtonClick = ()=>{
 };
 const generateGrid = ((rowQuantity = 3, columnQuantity = 3)=>{
     for(let i = 0; i < rowQuantity; i++){
-        let row = bootstrapGridElement('row',[], mainContainer);
+        let row = bootstrapGridElement('row',[], gridContainer);
         let column = bootstrapGridElement('col', ["d-flex", "justify-content-center"], row.getHtmlNode());
         const generateHoldButtons = (()=>{
             let buttonRowContainer = document.createElement('div');
@@ -62,7 +63,7 @@ const generateGrid = ((rowQuantity = 3, columnQuantity = 3)=>{
     }
 })();
 const generateResetButton = (()=>{
-   let row = bootstrapGridElement("row",["my-5"],mainContainer);
+   let row = bootstrapGridElement("row",["my-3"],resetContainer);
    let column = bootstrapGridElement("col", ["d-flex", "justify-content-center"], row.getHtmlNode());
    const setupButton = (()=>{
        let buttonContainer = document.createElement('div');
@@ -83,4 +84,17 @@ const initCells = (()=>{
     cells.forEach((cell)=>{
         cell.addClickFunction(onCellClick.bind(this, cell));
     });
+})();
+const setupInput = (()=>{
+    let inputOne = document.getElementById('playerOne');
+    let inputTwo = document.getElementById('playerTwo');
+    const setPlayerName = ()=>{
+        console.log("Entered set name");
+        players[0].name = inputOne.value;
+        console.log(`inputOne.value: ${inputOne.value}, P1 name; ${players[0].name}`);
+        players[1].name = inputTwo.value;
+        console.log(`inputTwo.value: ${inputTwo.value}, P2 name; ${players[1].name}`);
+    };
+    inputOne.addEventListener('blur', setPlayerName);
+    inputTwo.addEventListener('blur', setPlayerName);
 })();
