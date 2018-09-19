@@ -1,13 +1,27 @@
 const {holdButtonFactory} = require('./components/holdButton/holdButton');
 const {bootstrapGridElement} = require('./components/bootstrapGridElement/bootstrapGridElement');
+const {game} = require('./components/game/game');
+const {gameboard} = require('./components/gameboard/gameboard');
+const {playerFactory} = require('./components/player/player');
 const mainContainer = document.getElementById('mainContainer');
 let cells = [];
 const buttonClasses = [["btn-primary"], ["btn-warning"]];
 const icons = [["fas", "fa-times", "fa-2x"], ["far", "fa-circle", "fa-2x"]];
+let gboard = gameboard;
+let players = [playerFactory("First", "X"), playerFactory("Second", "O")];
+game.setBoard(gboard);
+game.setPlayers(players);
 let turn = 0;
+const getCellCoordinates = (cell, rowQuantity = 3, columnQuantity = 3 )=>{
+    let arrIndex = cells.indexOf(cell);
+    let h = Math.floor(arrIndex / rowQuantity);
+    let w = arrIndex % columnQuantity;
+    return [w,h]
+};
 const onCellClick = (cell)=>{
     cell.setIcon(icons[turn % 2]);
     cell.setCssClass(buttonClasses[turn % 2]);
+    console.log(getCellCoordinates(cell));
     turn++;
 };
 const resetCells = ()=>{
@@ -15,9 +29,7 @@ const resetCells = ()=>{
         cell.reset();
     })
 };
-const generateGrid = (()=>{
-    let rowQuantity = 3;
-    let columnQuantity = 3;
+const generateGrid = ((rowQuantity = 3, columnQuantity = 3)=>{
     for(let i = 0; i < rowQuantity; i++){
         let row = bootstrapGridElement('row',[], mainContainer);
         let column = bootstrapGridElement('col', ["d-flex", "justify-content-center"], row.getHtmlNode());
