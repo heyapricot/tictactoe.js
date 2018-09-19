@@ -40,10 +40,11 @@ const onGameEnd = ()=>{
         alert(`Winner is: ${game.winner().name}`)
     }
 };
-const resetCells = ()=>{
+const onResetButtonClick = ()=>{
     cells.forEach((cell)=>{
         cell.reset();
-    })
+    });
+    game.reset();
 };
 const generateGrid = ((rowQuantity = 3, columnQuantity = 3)=>{
     for(let i = 0; i < rowQuantity; i++){
@@ -67,7 +68,7 @@ const generateResetButton = (()=>{
        let buttonContainer = document.createElement('div');
        column.setChildNode(buttonContainer);
        let button = document.createElement('button');
-       button.addEventListener('click', resetCells);
+       button.addEventListener('click', onResetButtonClick);
        buttonContainer.appendChild(button);
        ["btn", "btn-success"].forEach((cssClass)=>{button.classList.toggle(cssClass)});
        let icon = (()=>{

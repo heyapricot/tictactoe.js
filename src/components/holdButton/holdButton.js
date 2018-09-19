@@ -1,6 +1,6 @@
 const holdButtonFactory = () =>{
     let _htmlButton = document.createElement('button');
-    let _cssClass = "btn-dark";
+    let _cssClass = "btn-secondary";
     let _defaultCssClass = "btn-secondary";
     let _onClickCallbacks = [];
     let _resetCallbacks = [];
@@ -33,6 +33,7 @@ const holdButtonFactory = () =>{
         if(_htmlButton.classList.contains(_cssClass)){
             _toggleAppearance();
         }
+        _cssClass = "btn-secondary";
     };
 
     const _resetPressedState = ()=>{

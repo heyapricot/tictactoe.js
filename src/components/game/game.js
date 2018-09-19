@@ -21,6 +21,7 @@ const game = (()=>{
     const hasEnded = ()=> { return _hasEnded };
     const reset = ()=>{
         _gameBoard.reset();
+        _hasEnded = false;
         _turn = 0;
         _winner = NaN;
     };
